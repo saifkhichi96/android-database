@@ -19,9 +19,13 @@ import javax.inject.Inject
  * @since 1.0.0
  * @see RemoteDatabase
  */
-class FirebaseDatabase @Inject constructor(context: Context) : RemoteDatabase() {
+class FirebaseDatabase @Inject constructor(val context: Context, persistent: Boolean = true) : RemoteDatabase() {
 
     private val db = Firebase.database
+
+    init {
+        db.setPersistenceEnabled(persistent)
+    }
 
     @ExperimentalCoroutinesApi
     override suspend fun <T : Any> observe(path: String, type: Class<T>): Flow<T> =
