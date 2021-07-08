@@ -19,12 +19,12 @@ import javax.inject.Inject
  * @since 1.0.0
  * @see RemoteDatabase
  */
-class FirebaseDatabase @Inject constructor(val context: Context, persistent: Boolean = true) : RemoteDatabase() {
+class FirebaseDatabase @Inject constructor(val context: Context, persistent: Boolean? = null) : RemoteDatabase() {
 
     private val db = Firebase.database
 
     init {
-        db.setPersistenceEnabled(persistent)
+        persistent?.let { db.setPersistenceEnabled(it) }
     }
 
     @ExperimentalCoroutinesApi
