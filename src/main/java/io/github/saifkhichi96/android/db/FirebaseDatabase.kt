@@ -32,7 +32,7 @@ class FirebaseDatabase @Inject constructor(val context: Context, persistent: Boo
         callbackFlow {
             val valueEventListener = object : ValueEventListener {
                 override fun onDataChange(s: DataSnapshot) {
-                    kotlin.runCatching { s.getValue(type)?.let(this@callbackFlow::offer) }
+                    kotlin.runCatching { s.getValue(type)?.let(this@callbackFlow::trySend) }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -51,21 +51,21 @@ class FirebaseDatabase @Inject constructor(val context: Context, persistent: Boo
         callbackFlow {
             val childEventListener = object : ChildEventListener {
                 override fun onChildAdded(s: DataSnapshot, p: String?) {
-                    kotlin.runCatching { s.getValue(type)?.let { offer(DatabaseEvent.Created(it)) } }
+                    kotlin.runCatching { s.getValue(type)?.let { trySend(DatabaseEvent.Created(it)) } }
                 }
 
                 override fun onChildChanged(s: DataSnapshot, p: String?) {
-                    kotlin.runCatching { s.getValue(type)?.let { offer(DatabaseEvent.Changed(it)) } }
+                    kotlin.runCatching { s.getValue(type)?.let { trySend(DatabaseEvent.Changed(it)) } }
                 }
 
                 override fun onChildRemoved(s: DataSnapshot) {
-                    kotlin.runCatching { s.getValue(type)?.let { offer(DatabaseEvent.Deleted(it)) } }
+                    kotlin.runCatching { s.getValue(type)?.let { trySend(DatabaseEvent.Deleted(it)) } }
                 }
 
                 override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
 
                 override fun onCancelled(error: DatabaseError) {
-                    offer(DatabaseEvent.Cancelled(error))
+                    trySend(DatabaseEvent.Cancelled(error))
                 }
             }
 

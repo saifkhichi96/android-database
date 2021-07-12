@@ -1,6 +1,7 @@
 package io.github.saifkhichi96.android.db
 
 import io.github.saifkhichi96.android.db.model.DatabaseEvent
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -130,6 +131,7 @@ abstract class RemoteDatabase {
      * @param type The class type of the data.
      * @return A [Flow] of the objects, which emits a new object on every update.
      */
+    @ExperimentalCoroutinesApi
     abstract suspend fun <T : Any> observe(path: String, type: Class<T>): Flow<T>
 
     /**
@@ -142,6 +144,7 @@ abstract class RemoteDatabase {
      * @param type The class type of the children.
      * @return A [Flow] of [DatabaseEvent]s, which emits a child object on every update.
      */
+    @ExperimentalCoroutinesApi
     abstract suspend fun <T : Any> observeChildren(path: String, type: Class<T>): Flow<DatabaseEvent<T>>
 
     /**
