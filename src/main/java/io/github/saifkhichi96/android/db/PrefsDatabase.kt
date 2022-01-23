@@ -7,8 +7,12 @@ import javax.inject.Inject
 /**
  * Implements the [LocalDatabase] with Shared Preferences.
  *
+ * @constructor Creates a new instance of the [PrefsDatabase] class.
+ * @param context The application context.
+ *
  * @author saifkhichi96
  * @since 1.0.0
+ * @see LocalDatabase
  */
 class PrefsDatabase @Inject constructor(context: Context) : LocalDatabase() {
 

@@ -15,6 +15,13 @@ import javax.inject.Inject
 /**
  * Implements the [RemoteDatabase] with Firebase Realtime Database.
  *
+ * @constructor Creates a new instance of [FirebaseDatabase].
+ * @param context The application context.
+ * @param persistent Whether the database should be persistent. If true, a local cache will be used to
+ *                   speed up the database operations. If false, persistence will be disabled. If null,
+ *                   no changes to the default persistence behavior of Firebase will be made. Defaults to
+ *                   null.
+ *
  * @author saifkhichi96
  * @since 1.0.0
  * @see RemoteDatabase

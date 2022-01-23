@@ -3,11 +3,14 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'maven-publish'
 }
 
 android {
     compileSdkVersion 32
     defaultConfig {
+        versionCode 1
+        versionName "1.0.0"
         minSdkVersion 16
         targetSdkVersion 32
         consumerProguardFiles "consumer-rules.pro"
@@ -34,7 +37,7 @@ dependencies {
 
     // Kotlin coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.0-native-mt"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.0"
 
     // Dependency injection with Hilt
     implementation("com.google.dagger:hilt-android:2.40.5")
@@ -46,4 +49,46 @@ dependencies {
     // Firebase for remote database
     implementation platform("com.google.firebase:firebase-bom:29.0.4")
     implementation "com.google.firebase:firebase-database-ktx"
+}
+
+def props = new Properties()
+props.load(new FileInputStream(rootProject.file("github.properties")))
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                // Replace with your own group ID.
+                groupId 'io.github.saifkhichi96'
+
+                // Replace with the name of your library
+                artifactId 'android-database'
+                version '1.0.0'
+            }
+
+            debug(MavenPublication) {
+                from components.debug
+
+                // Replace with your own group ID.
+                groupId 'io.github.saifkhichi96'
+
+                // Replace with the name of your library
+                artifactId 'android-database'
+                version '1.0.0'
+            }
+        }
+
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/saifkhichi96/android-database")
+                credentials {
+                    username = props.user
+                    password = props.key
+                }
+            }
+        }
+    }
 }
