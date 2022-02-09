@@ -1,3 +1,10 @@
+---
+layout: project
+title: Android Database
+permalink: /
+code: saifkhichi96/android-database
+---
+
 # Android Database
 
 This package provides an extensible interface for creating and managing databases in Android apps. This includes both
@@ -68,4 +75,4 @@ lateinit var remoteDatabase: RemoteDatabase
 
 It is also possible to use the package without Hilt, in which case you can simply initialize the databases yourself where required.
 
-To get started with the package, see the [LocalDatabase](./src/main/java/io/github/saifkhichi96/android/db/LocalDatabase.kt) and [RemoteDatabase](./src/main/java/io/github/saifkhichi96/android/db/RemoteDatabase.kt) classes, or read the [API documentation](.docs/).
+To get started with the package, see the [LocalDatabase](https://github.com/saifkhichi96/android-database/blob/main/src/main/java/io/github/saifkhichi96/android/db/LocalDatabase.kt) and [RemoteDatabase](https://github.com/saifkhichi96/android-database/blob/main/src/main/java/io/github/saifkhichi96/android/db/RemoteDatabase.kt) classes, or read the [API documentation](./docs/).

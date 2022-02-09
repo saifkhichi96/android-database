@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'org.jetbrains.dokka'
     id 'maven-publish'
 }
 
@@ -91,4 +92,8 @@ afterEvaluate {
             }
         }
     }
+}
+
+tasks.dokkaJekyll.configure {
+    outputDirectory.set(file("docs/"))
 }
